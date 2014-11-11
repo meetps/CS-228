@@ -42,3 +42,15 @@ is_prime(3).
 is_prime(P) :- integer(P), P > 3, P mod 2 =\= 0, \+ has_factor(P,3).
 has_factor(N,L) :- N mod L =:= 0.
 has_factor(N,L) :- L * L < N, L2 is L + 2, has_factor(N,L2).
+
+factors(1,[1]).
+factors(2,[1,2]).
+factors(3,[1,3]).
+
+add_list([], L, L).
+add_list([H|T], L, L1) :- add(H, L2, L1), add_list(T, L, L2).
+
+
+factors(N,[1|L]) :- for_start(2, N, L).
+for_start(I,I,[I]).
+for_start(I,N,Ans) :- I < N, I1 is I + 1, (N mod I =:= 0 ->  Ans = [I|L]; Ans = L), for_start(I1,N,L). 
